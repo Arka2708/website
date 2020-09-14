@@ -150,6 +150,11 @@ class NavBar extends Component {
                 url="/contact"
                 name="Contact"
               />
+              <NavLink
+                closeMenus={this.props.closeMenus}
+                url="/docs"
+                name="Docs"
+              />
             </div>
             <div className="navbar-end">
               <div className="navbar-item nav-link navbar-buttons">

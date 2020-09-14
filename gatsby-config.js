@@ -22,6 +22,36 @@ module.exports = {
   plugins: [
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-remove-serviceworker', // Supposedly this fixes possible caching issues. https://stackoverflow.com/a/56548989/5378196
+	  {
+		  resolve: `gatsby-source-git`,
+		  options: {
+			  name: `song`,
+			  remote: `https://github.com/overture-stack/song.git`,
+			  branch: `4.2.2`,
+			  // Only import the docs folder from a codebase.
+			  patterns: `./**`
+		  }
+	  },
+	  {
+		  resolve: `gatsby-source-git`,
+		  options: {
+			  name: `score`,
+			  remote: `https://github.com/overture-stack/score.git`,
+			  branch: `5.1.0`,
+			  // Only import the docs folder from a codebase.
+			  patterns: `./**`
+		  }
+	  },
+	  {
+		  resolve: `gatsby-source-git`,
+		  options: {
+			  name: `ego`,
+			  remote: `https://github.com/overture-stack/ego.git`,
+			  branch: `3.1.1`,
+			  // Only import the docs folder from a codebase.
+			  patterns: `./**`
+		  }
+	  },
     // Google Analytics
     {
       resolve: `gatsby-plugin-google-analytics`,
