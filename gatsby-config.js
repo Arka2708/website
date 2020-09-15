@@ -126,5 +126,6 @@ module.exports = {
       },
     },
     'gatsby-plugin-netlify',
+	'gatsby-transformer-remark',
   ],
 }
