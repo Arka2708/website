@@ -9,13 +9,16 @@ export const findPrevPage = ({
   sectionTitle,
 }) => {
   if (isLandingPage) {
+    console.log('is landing page');
     return null;
   } else if (isFirstPage) {
+    console.log('is first page');
     return {
       title: sectionTitle,
-      url: `/documentation/${sectionSlug}`,
+      url: `/documentation/${sectionSlug}/`,
     };
   } else {
+    console.log('is a regular page');
     const prevPagesKeys = Object.keys(sectionPages)
       .slice(0, pageIndex)
       .reverse();
@@ -32,7 +35,7 @@ export const findPrevPage = ({
 
     return {
       title: prevTitle,
-      url: `/documentation/${prevUrl}`,
+      url: `/documentation/${prevUrl}/`,
     };
   }
 };
@@ -41,7 +44,7 @@ export const findNextPage = ({ isLandingPage, pageIndex, sectionPages }) => {
   if (isLandingPage) {
     return {
       title: sectionPages['0.title'],
-      url: `/documentation/${sectionPages['0.url']}`,
+      url: `/documentation/${sectionPages['0.url']}/`,
     };
   } else {
     const nextPagesKeys = Object.keys(sectionPages).slice(pageIndex + 1);
@@ -58,7 +61,7 @@ export const findNextPage = ({ isLandingPage, pageIndex, sectionPages }) => {
 
     return {
       title: nextTitle,
-      url: `/documentation/${nextUrl}`,
+      url: `/documentation/${nextUrl}/`,
     };
   }
 };

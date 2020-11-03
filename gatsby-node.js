@@ -17,14 +17,16 @@ export function onCreateNode({ node, getNode, actions: { createNodeField } }) {
 
     // make index the root page of the folder
     const isIndex = pageName === 'index';
-    const pageSlug = isIndex ? '' : `/${pageName}`;
+    const pageSlug = isIndex ? '' : `${pageName}/`;
 
     // documentation section
     const isDocs = sourceInstanceName === 'docs';
 
     const slug = isDocs
-      ? `/documentation/${relativeDirectory}${pageSlug}`
-      : `/${relativePath.replace(ext, '')}`;
+      ? `/documentation/${relativeDirectory}/${pageSlug}`
+      : `/${relativePath.replace(ext, '')}/`;
+
+    console.log({ slug });
 
     createNodeField({
       name: `slug`,

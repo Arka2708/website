@@ -10,10 +10,9 @@ const data = {
   products: {
     explore: {
       title: 'Explore our products',
-      text:
-        'Overture is a collection of open-source products for big-data genomic science.',
+      text: 'Overture is a collection of open-source products for big-data genomic science.',
       link: {
-        to: '/products',
+        to: '/products/',
         text: 'All products',
       },
     },
@@ -23,8 +22,8 @@ const data = {
         color: 'pink',
         hasCoreIcon: true,
         links: [
-          { to: '/products/song', text: 'Song' },
-          { to: '/products/score', text: 'Score' },
+          { to: '/products/song/', text: 'Song' },
+          { to: '/products/score/', text: 'Score' },
         ],
       },
       {
@@ -32,25 +31,25 @@ const data = {
         color: 'blue',
         hasCoreIcon: true,
         links: [
-          { to: '/products/ego', text: 'Ego' },
-          { to: '/products/maestro', text: 'Maestro' },
-          { to: '/products/arranger', text: 'Arranger' },
+          { to: '/products/ego/', text: 'Ego' },
+          { to: '/products/maestro/', text: 'Maestro' },
+          { to: '/products/arranger/', text: 'Arranger' },
         ],
       },
       {
         title: 'Analyze & Discover',
         color: 'red',
         links: [
-          { to: '/products/jukebox', text: 'Jukebox' },
-          { to: '/products/oncojs', text: 'OncoJS' },
+          { to: '/products/jukebox/', text: 'Jukebox' },
+          { to: '/products/oncojs/', text: 'OncoJS' },
         ],
       },
       {
         title: 'Collaborate & Share',
         color: 'light-green',
         links: [
-          { to: '/products/persona', text: 'Persona' },
-          { to: '/products/riff', text: 'Riff' },
+          { to: '/products/persona/', text: 'Persona' },
+          { to: '/products/riff/', text: 'Riff' },
         ],
       },
       {
@@ -77,7 +76,7 @@ const data = {
       text:
         'Learn how to install the Data Management System (DMS) or individual products using our easy-to-use guides.',
       link: {
-        to: '/documentation',
+        to: '/documentation/',
         text: 'Documentation Overview',
       },
     },
@@ -87,15 +86,15 @@ const data = {
         color: 'dark-blue',
         links: [
           {
-            to: '/documentation',
+            to: '/documentation/dms/introduction/',
             text: 'Introduction',
           },
           {
-            to: '/documentation',
+            to: '/documentation/dms/how-to-install/',
             text: 'How to Install',
           },
           {
-            to: '/documentation',
+            to: '/documentation/dms/for-administrators/',
             text: 'For Administrators',
           },
         ],
@@ -105,11 +104,11 @@ const data = {
         color: 'pink',
         links: [
           {
-            to: '/documentation',
+            to: '/documentation/score/',
             text: 'Score',
           },
           {
-            to: '/documentation',
+            to: '/documentation/song/',
             text: 'Song',
           },
         ],
@@ -119,15 +118,15 @@ const data = {
         color: 'blue',
         links: [
           {
-            to: '/documentation',
+            to: '/documentation/ego/',
             text: 'Ego',
           },
           {
-            to: '/documentation',
+            to: '/documentation/maestro/',
             text: 'Maestro',
           },
           {
-            to: '/documentation',
+            to: '/documentation/arranger/',
             text: 'Arranger',
           },
         ],
@@ -137,11 +136,11 @@ const data = {
         color: 'red',
         links: [
           {
-            to: '/documentation',
+            to: '/documentation/jukebox/',
             text: 'Jukebox',
           },
           {
-            to: '/documentation',
+            to: '/documentation/oncojs/',
             text: 'OncoJs',
           },
         ],
@@ -151,11 +150,11 @@ const data = {
         color: 'light-green',
         links: [
           {
-            to: '/documentation',
+            to: '/documentation/persona/',
             text: 'Persona',
           },
           {
-            to: '/documentation',
+            to: '/documentation/riff/',
             text: 'Riff',
           },
         ],
@@ -187,7 +186,7 @@ const MegaMenu = ({ className, megaMenuType }) => {
           </div>
         </section>
 
-        {sections.map((section) => (
+        {sections.map(section => (
           <section className="menu-section" key={section.title}>
             <div className="menu-section-heading">
               {megaMenuType === 'products' &&
@@ -199,22 +198,16 @@ const MegaMenu = ({ className, megaMenuType }) => {
               <Badge color={section.color}>{section.title}</Badge>
             </div>
             <ul className="menu-section-links">
-              {section.links.map((link) => (
+              {section.links.map(link => (
                 <li key={link.text}>
                   {link.to.charAt(0) === '/' ? (
                     <Link className="menu-section-link" to={link.to}>
                       {link.text}
                     </Link>
                   ) : (
-                    <a
-                      className="menu-section-link"
-                      href={link.to}
-                      target="_blank"
-                    >
+                    <a className="menu-section-link" href={link.to} target="_blank">
                       {link.text}
-                      {link.hasGithubIcon && (
-                        <Icon className="pl1" img="githubGrey" />
-                      )}
+                      {link.hasGithubIcon && <Icon className="pl1" img="githubGrey" />}
                     </a>
                   )}
                 </li>
