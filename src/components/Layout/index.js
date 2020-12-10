@@ -1,7 +1,7 @@
 // This component handles site wide layouts.  (new to Gatsby 2.0)
 import React, { Component } from 'react';
 import Helmet from 'react-helmet';
-import { Footer, NavBar, MegaMenu } from 'components';
+import { Footer, NavBar, MegaMenu, SidebarMenu } from 'components';
 import config from 'meta/config';
 import 'styles/main.scss';
 
@@ -94,10 +94,23 @@ class TemplateWrapper extends Component {
    */
   render() {
     const { megaMenuOpen, popOverRef, megaMenuType, mobileMenuOpen } = this.state;
-    const { children, path } = this.props;
+    const { path, data = {} } = this.props;
     const megaMenuClass = megaMenuOpen ? 'open' : 'closed';
     const desktopMegaMenuCheck =
       typeof window !== 'undefined' && !mobileMenuOpen && window.innerWidth > 1160;
+
+    // documentation section, left sidebar
+    // passing it down from here so that when you open/close
+    // different menu levels, it'll persist across pages
+    // in the same section
+    const children =
+      data.allYaml && data.allYaml.nodes
+        ? React.Children.map(this.props.children, child =>
+            React.cloneElement(child, {
+              sidebarMenu: <SidebarMenu />,
+            })
+          )
+        : this.props.children;
 
     return (
       <div>

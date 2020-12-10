@@ -50,7 +50,7 @@ const shortcodes = {
 const replacedComponents = {
   pre: preProps => {
     const props = preToCodeBlock(preProps);
-    // if there's a codeString and some props, we passed the test
+    // if there's a code string & props, add code highlighting
     if (props) {
       return <Code {...props} />;
     } else {
@@ -61,19 +61,19 @@ const replacedComponents = {
   wrapper: props => <div className="docs__mdx" {...props} />,
 };
 
-export default function DocumentationPage({ data, location, path }) {
+export default function DocumentationPage({ data, location, path, sidebarMenu }) {
   if (!SHOW_DOCS) return <NotFoundPage />;
 
   const {
     body,
-    fields: { slug, title },
+    fields: { sectionSlug, slug, title },
     tableOfContents,
   } = data.mdx;
 
   // get section info
   const sectionObj = data.allYaml.nodes[0];
   const pagesFlat = flatten(sectionObj.pages);
-  const { sectionSlug, sectionTitle } = sectionObj;
+  const { sectionTitle } = sectionObj;
   const sectionIcon = sectionIcons[sectionSlug];
   const pagePath = slug.split('/documentation/')[1].slice(0, -1); // remove trailing slash
 
@@ -103,7 +103,7 @@ export default function DocumentationPage({ data, location, path }) {
 
   return (
     <main className="docs__page">
-      <div class="docs__mobile-sidebar__button">
+      <div className="docs__mobile-sidebar__button">
         <button
           type="button"
           className={`button navbar-burger ${isMobileSidebarActive ? 'is-active' : ''}`}
@@ -137,6 +137,8 @@ export default function DocumentationPage({ data, location, path }) {
                 Documentation Overview
               </Link>
 
+              {sidebarMenu}
+
               <SectionTableOfContents
                 pages={sectionObj.pages}
                 path={path}
@@ -150,7 +152,7 @@ export default function DocumentationPage({ data, location, path }) {
         <div className="docs__main">
           <div className="docs__main-container">
             {/* GITHUB BUTTON */}
-            <div class="docs__github-btn">
+            <div className="docs__github-btn">
               <Button externalLink={githubLinks[sectionSlug]} type="primary">
                 <Icon img="githubWhite" size={20} /> {sectionTitle} Github
               </Button>
