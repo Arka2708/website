@@ -1,9 +1,15 @@
 // This component handles site wide layouts.  (new to Gatsby 2.0)
 import React, { Component } from 'react';
+import { Link } from 'gatsby';
 import Helmet from 'react-helmet';
-import { Footer, NavBar, MegaMenu, SidebarMenu } from 'components';
+import { Footer, Icon, NavBar, MegaMenu, Search, SidebarMenu } from 'components';
 import config from 'meta/config';
+import { sectionIcons } from '../../templates/documentation/utils';
 import 'styles/main.scss';
+
+const SHOW_DOCS = process.env.GATSBY_SHOW_DOCS === 'true';
+const searchIndex = process.env.GATSBY_ALGOLIA_INDEX_NAME;
+const searchIndices = [{ name: searchIndex, title: searchIndex }];
 
 class TemplateWrapper extends Component {
   constructor() {
@@ -15,6 +21,7 @@ class TemplateWrapper extends Component {
     megaMenuOpen: false,
     megaMenuType: null, // products or docs
     mobileMenuOpen: false,
+    mobileSidebarOpen: false,
     popOverRef: null,
   };
 
@@ -73,6 +80,11 @@ class TemplateWrapper extends Component {
     }
   };
 
+  toggleMobileSidebar = () => {
+    const { mobileSidebarOpen } = this.state;
+    this.setState({ mobileSidebarOpen: !mobileSidebarOpen });
+  };
+
   componentDidMount() {
     this.setState({ popOverRef: this.popOverRef });
   }
@@ -94,23 +106,14 @@ class TemplateWrapper extends Component {
    */
   render() {
     const { megaMenuOpen, popOverRef, megaMenuType, mobileMenuOpen } = this.state;
-    const { path, data = {} } = this.props;
+    const { children, data = {}, path } = this.props;
     const megaMenuClass = megaMenuOpen ? 'open' : 'closed';
     const desktopMegaMenuCheck =
       typeof window !== 'undefined' && !mobileMenuOpen && window.innerWidth > 1160;
+    const isDocs = path.indexOf('/documentation/') === 0;
+    const docsSectionTitle = isDocs && data.allYaml.nodes[0].sectionTitle;
 
-    // documentation section, left sidebar
-    // passing it down from here so that when you open/close
-    // different menu levels, it'll persist across pages
-    // in the same section
-    const children =
-      data.allYaml && data.allYaml.nodes
-        ? React.Children.map(this.props.children, child =>
-            React.cloneElement(child, {
-              sidebarMenu: <SidebarMenu />,
-            })
-          )
-        : this.props.children;
+    const isMobileSidebarActive = false;
 
     return (
       <div>
@@ -143,7 +146,54 @@ class TemplateWrapper extends Component {
 
         <div className="site-wrapper">
           <div onClick={() => this.closeMegaMenu()} className="site-wrapper__content">
-            {children}
+            {isDocs && SHOW_DOCS ? (
+              <main className="docs__page">
+                <div className="docs__mobile-sidebar__button">
+                  <button
+                    type="button"
+                    className={`button navbar-burger ${mobileMenuOpen ? 'is-active' : ''}`}
+                    onClick={this.toggleMobileSidebar}
+                  >
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </button>
+                </div>
+                <div className="docs__header">
+                  <div className="docs__header-title">
+                    <Icon className="icon" size={45} img={sectionIcons[docsSectionTitle]} />
+                    <h1>{docsSectionTitle} Documentation</h1>
+                  </div>
+                  <div className="docs__header-search">
+                    <Search indices={searchIndices} />
+                  </div>
+                </div>
+                <div className="docs__columns">
+                  {/* SECTION TABLE OF CONTENTS */}
+                  <div
+                    className={`docs__sidebar docs__mobile-sidebar  ${
+                      isMobileSidebarActive ? 'docs__mobile-sidebar__active' : ''
+                    }`}
+                  >
+                    <SidebarMenu />
+                    <div className="docs__sidebar__sticky">
+                      <Link to="/documentation/" className="docs__sidebar__overview">
+                        <Icon size={6} img="arrowLeftBlue" />
+                        Documentation Overview
+                      </Link>
+                      {/* <SectionTableOfContents
+                        pages={sectionObj.pages}
+                        path={path}
+                        sectionSlug={sectionSlug}
+                      />*/}
+                    </div>
+                  </div>
+                  {children}
+                </div>
+              </main>
+            ) : (
+              children
+            )}
           </div>
           <Footer />
         </div>
