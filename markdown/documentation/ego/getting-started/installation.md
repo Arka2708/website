@@ -2,7 +2,7 @@
 title: Installing Ego
 ---
 
-Ego can be downloaded as a bundled distribution package [here](???).
+Ego can be downloaded as a bundled distribution package [here](???). BLAHBLAHBLAH YYY
 
 # Download the latest version
 
