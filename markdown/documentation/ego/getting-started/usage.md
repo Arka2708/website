@@ -11,7 +11,7 @@ An [application JWT](/documentation/ego/getting-started/tokens#application-jwt) 
 ## Register an Application
 To register an application with EGO make a request as documented at /swagger-ui.html#!/application-controller/createUsingPOST
 
-## UI 
+## UI
 
 The Ego administrative UI allows you to easily manage your groups, applications, policies, and users all from a single web interface.
 

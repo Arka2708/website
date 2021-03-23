@@ -34,6 +34,7 @@ Application JWTs contain information about an applications's name, role (user/ad
 ```
 
 # User JWT
+
 User JWTs contain information about the user's name, role (user/administrator), status, and any permissions (materialized as scopes), and groups associated with their Ego account.  Ypu can tell it is a user token through the `"user"` block that is defined.  An example of a user token issues by Ego is shown below:
 
 ```json
