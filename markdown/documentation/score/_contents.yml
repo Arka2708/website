@@ -1,0 +1,17 @@
+sectionSlug: score
+sectionTitle: Score
+pages:
+  - title: Introduction
+    url: score
+  - title: Installation Guide 
+    url: score/installation
+    isHeading: true
+    pages:
+      - title: Installation
+        url: score/installation/installation
+      - title: Configuration
+        url: score/installation/configuration
+      - title: Authentication 
+        url: score/installation/authentication
+  - title: User Guide 
+    url: score/user-guide
