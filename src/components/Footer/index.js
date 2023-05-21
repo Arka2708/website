@@ -194,6 +194,9 @@ const Footer = () => {
           <img src={NETLIFY_IMAGE_LINK} alt="Deploys by Netlify" />
         </Link>
       </div>
+const version = require('../../package.json').version;
+document.getElementById('version').textContent = version;
+
     </footer>
   );
 };
